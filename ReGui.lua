@@ -844,21 +844,18 @@ type TagsList = {
 --// Compatibility 
 local EmptyFunction = function() end
 local GetHiddenUI = get_hidden_gui or gethui
-local NewReference = cloneref or function(Ins): Instance 
-	return Ins 
-end
 
 --// Service handlers
 local Services = setmetatable({}, {
-	__index = function(self, Name: string)
-		local Service = game:GetService(Name)
-		return NewReference(Service)
+	__index = function(self, Name: string): Instance
+		return cloneref(game:GetService(Name))
 	end,
 })
 
+
 --// Core functions 
 --// Services
-local HttpService = game:GetService("HttpService")
+local HttpService = cloneref(game:GetService("HttpService"))
 local Players: Players = Services.Players
 local CoreGui = Services.CoreGui
 local UserInputService = Services.UserInputService
