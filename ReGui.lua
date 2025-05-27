@@ -865,7 +865,7 @@ local RunService = Services.RunService
 --// Local player
 local LocalPlayer = Players.LocalPlayer
 ReGui.PlayerGui = LocalPlayer.PlayerGui
-ReGui.Mouse = LocalPlayer:GetMouse()
+ReGui.Mouse = UserInputService:GetMouseLocation()
 
 --// Animation class
 local Animation = ReGui.Animation
