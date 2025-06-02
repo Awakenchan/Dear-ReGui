@@ -1367,12 +1367,6 @@ function ReGui:ResolveUIParent(): GuiObject?
 			if Parent.Parent == CoreGui then return end
 
 			return Parent
-		end,
-		[2] = function()
-			return CoreGui
-		end,
-		[3] = function()
-			return PlayerGui
 		end
 	}
 
