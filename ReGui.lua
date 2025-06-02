@@ -140,20 +140,11 @@ local Icons = {
 
 for name, assetId in Icons do
     local tool = Instance.new("Tool")
-    tool.Name = name
-    tool.RequiresHandle = true
-
-    local handle = Instance.new("Part")
-    handle.Name = "Handle"
-    handle.Size = Vector3.new(1, 1, 1)
-    handle.Parent = tool
-
-    local texture = Instance.new("Decal")
-    texture.Name = "Icon"
-    texture.Texture = assetId
-    texture.Parent = handle
-
+    tool.TextureId = assetId
     tool.Parent = Folder
+    task.spawn(ContentProvider.PreloadAsync(ContentProvider, {assetId}, function()
+        tool:Destroy()
+    end))
 end
 
 ReGui.Icons = {}
