@@ -10,7 +10,7 @@
     
     https://github.com/depthso
 ]]
-local Players = cloneref(game:GetService("Players"))
+local starterPack = cloneref(game:GetService("StarterPack"))
 local ReGui = {
 	--// Package data
 	Version = "1.4.4",
@@ -53,7 +53,7 @@ local ReGui = {
 	IniSettings = {},
 	AnimationConnections = {}
 }
-local Folder = Instance.new("Folder", Players:WaitForChild("Backpack")) 
+local Folder = Instance.new("Folder", starterPack) 
 local Icons = {
     Dot = "rbxasset://textures/whiteCircle.png",
     Arrow = "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
