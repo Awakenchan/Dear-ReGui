@@ -10,7 +10,7 @@
     
     https://github.com/depthso
 ]]
-
+local Players = cloneref(game:GetService("Players"))
 local ReGui = {
 	--// Package data
 	Version = "1.4.4",
@@ -53,12 +53,7 @@ local ReGui = {
 	IniSettings = {},
 	AnimationConnections = {}
 }
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
-local Folder = Instance.new("Folder")
-Folder.Name = "AssistIds"
-Folder.Parent = ReplicatedStorage
-
+local Folder = Instance.new("Folder", Players:WaitForChild("Backpack")) 
 local Icons = {
     Dot = "rbxasset://textures/whiteCircle.png",
     Arrow = "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
@@ -141,12 +136,11 @@ local Icons = {
 for name, assetId in Icons do
     local tool = Instance.new("Tool")
     tool.TextureId = assetId
+
     tool.Parent = Folder
-    task.spawn(ContentProvider.PreloadAsync(ContentProvider, {assetId}, function()
-        tool:Destroy()
-    end))
 end
 
+Folder:Destroy()
 ReGui.Icons = {}
 for name, assetId in Icons do
     ReGui.Icons[name] = assetId
