@@ -136,7 +136,7 @@ local Icons = {
 
 for name, assetId in Icons do
     local mesh = Instance.new("MeshPart")
-    mesh.TextureId = assetId
+    mesh.TextureID = assetId
     mesh.Parent = starterPack
 end
 
