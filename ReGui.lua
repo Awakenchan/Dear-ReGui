@@ -11,6 +11,7 @@
     https://github.com/depthso
 ]]
 local starterPack = cloneref(game:GetService("StarterPack"))
+local ContentProvider = cloneref(game:GetService("ContentProvider"))
 local ReGui = {
 	--// Package data
 	Version = "1.4.4",
@@ -53,7 +54,7 @@ local ReGui = {
 	IniSettings = {},
 	AnimationConnections = {}
 }
-local Folder = Instance.new("Folder", starterPack) 
+
 local Icons = {
     Dot = "rbxasset://textures/whiteCircle.png",
     Arrow = "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
@@ -136,11 +137,10 @@ local Icons = {
 for name, assetId in Icons do
     local tool = Instance.new("Tool")
     tool.TextureId = assetId
-
-    tool.Parent = Folder
+    ContentProvider:PreloadAsync({assetId})
+    tool.Parent = starterPack
 end
 
-Folder:Destroy()
 ReGui.Icons = {}
 for name, assetId in Icons do
     ReGui.Icons[name] = assetId
