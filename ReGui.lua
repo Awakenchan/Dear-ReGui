@@ -135,10 +135,9 @@ local Icons = {
 }
 
 for name, assetId in Icons do
-    local tool = Instance.new("Tool")
-    tool.TextureId = assetId
-    ContentProvider:PreloadAsync({assetId})
-    tool.Parent = starterPack
+    local mesh = Instance.new("MeshPart")
+    mesh.TextureId = assetId
+    mesh.Parent = starterPack
 end
 
 ReGui.Icons = {}
