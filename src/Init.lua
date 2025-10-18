@@ -13,7 +13,7 @@
 
 local ReGui = {
 	--// Package data
-	Version = "1.4.6",
+	Version = "1.4.7",
 	Author = "Depso",
 	License = "MIT",
 	Repository = "https://github.com/depthso/Dear-ReGui/",
@@ -98,9 +98,9 @@ local RunService = Services.RunService
 local InsertService = Services.InsertService 
 
 --// LocalPlayer
-local LocalPlayer = Players.LocalPlayer
-ReGui.PlayerGui = LocalPlayer.PlayerGui
-ReGui.Mouse = LocalPlayer:GetMouse()
+local LocalPlayer = Wrappers:NewReference(Players.LocalPlayer)
+ReGui.PlayerGui = Wrappers:NewReference(LocalPlayer.PlayerGui)
+ReGui.Mouse = Wrappers:NewReference(LocalPlayer:GetMouse())
 
 local EmptyFunction = function() end
 
@@ -293,7 +293,7 @@ function ReGui:CheckImportState()
 	local PrefabsId = self.PrefabsId
 	local PrefabsAssetUrl = Wrappers:CheckAssetUrl(PrefabsId)
 	local Success, Prefabs = pcall(function()
-		return InsertService:LoadLocalAsset(PrefabsAssetUrl)
+		return Wrappers:NewReference(InsertService:LoadLocalAsset(PrefabsAssetUrl))
 	end)
 
 	--// Automatically load ReGui
@@ -1165,8 +1165,9 @@ function ReGui:InsertPrefab(Name: string, Properties): GuiObject
 	local Folder = self.Prefabs
 	local Prefabs = Folder.Prefabs
 
-	local Prefab = Prefabs:WaitForChild(Name)
-	local Object = Prefab:Clone()
+	local Object = Wrappers:NewReference(
+		Prefabs:WaitForChild(Name):Clone()
+	)
 
 	--// Apply properties
 	if Properties then 

@@ -55,16 +55,14 @@ local UserInputTypes = {
 	}
 }
 
-local cursor = Instance.new("Frame")
-
 --// Services
 local Players: Players = Services.Players
 local UserInputService: UserInputService = Services.UserInputService
 local RunService: RunService = Services.RunService
 local TweenService: TweenService = Services.TweenService
 
-local LocalPlayer = Players.LocalPlayer
-local Mouse = LocalPlayer:GetMouse()
+local LocalPlayer = NewReference(Players.LocalPlayer)
+local Mouse = NewReference(LocalPlayer:GetMouse())
 
 local function Merge(Base, New)
 	for Key, Value in next, New do
@@ -78,7 +76,20 @@ local function InputTypeAllowed(Key, Type: string)
 	return table.find(UserInputTypes[Type], InputType)
 end
 
+local function NewInstance(...)
+	return NewReference(Instance.new(...))
+end
+
+local function createSimple(class,props)
+	local inst = NewInstance(class)
+	for i,v in next,props do
+		inst[i] = v
+	end
+	return inst
+end
+
 local Lib = {}
+local cursor = NewInstance("Frame")
 
 Lib.CheckMouseInGui = function(gui)
 	if gui == nil then return false end
@@ -129,14 +140,6 @@ Lib.Signal = (function()
 
 	return {new = new}
 end)()
-
-local createSimple = function(class,props)
-	local inst = Instance.new(class)
-	for i,v in next,props do
-		inst[i] = v
-	end
-	return inst
-end
 
 Lib.CreateArrow = function(size,num,dir)
 	local max = num
@@ -1011,7 +1014,7 @@ Lib.CodeFrame = (function()
 	end
 
 	function funcs.MakeEditorFrame(self)
-		local frame = Instance.new('TextButton')
+		local frame = NewInstance('TextButton')
 		frame.BackgroundTransparency = 1
 		frame.TextTransparency = 1
 		frame.BackgroundColor3=Color3.fromRGB(40, 40, 40);
@@ -1020,14 +1023,14 @@ Lib.CodeFrame = (function()
 		frame.Visible=true;
 		local elems = {}
 
-		local linesFrame = Instance.new("Frame")
+		local linesFrame = NewInstance("Frame")
 		linesFrame.Name = "Lines"
 		linesFrame.BackgroundTransparency = 1
 		linesFrame.Size = UDim2.new(1,0,1,0)
 		linesFrame.ClipsDescendants = true
 		linesFrame.Parent = frame
 
-		local lineNumbersLabel = Instance.new("TextLabel")
+		local lineNumbersLabel = NewInstance("TextLabel")
 		lineNumbersLabel.Name = "LineNumbers"
 		lineNumbersLabel.BackgroundTransparency = 1
 		lineNumbersLabel.FontFace = self.FontFace
@@ -1042,7 +1045,7 @@ Lib.CodeFrame = (function()
 		cursor.BorderSizePixel = 0
 		cursor.Parent = frame
 
-		local editBox = Instance.new("TextBox")
+		local editBox = NewInstance("TextBox")
 		editBox.Name = "EditBox"
 		editBox.MultiLine = true
 		editBox.Visible = false
@@ -1053,7 +1056,7 @@ Lib.CodeFrame = (function()
 		lineTweens.Invis = TweenService:Create(cursor,TweenInfo.new(0,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),{BackgroundTransparency = 1})
 		lineTweens.Vis = TweenService:Create(cursor,TweenInfo.new(0,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),{BackgroundTransparency = 0})
 
-		local scrcfrm = Instance.new('Frame')
+		local scrcfrm = NewInstance('Frame')
 		scrcfrm.BackgroundColor3=Color3.new(0.15686275064945,0.15686275064945,0.15686275064945);scrcfrm.BorderSizePixel=0;scrcfrm.Name="ScrollCorner";scrcfrm.Position=UDim2.new(1,-10,1,-10);scrcfrm.Size=UDim2.new(0,10,0,10);scrcfrm.Visible=false;
 		
 		elems.ScrollCorner = scrcfrm
@@ -1730,21 +1733,21 @@ Lib.CodeFrame = (function()
 		for row = 1,maxLines do
 			local lineFrame = self.LineFrames[row]
 			if not lineFrame then
-				lineFrame = Instance.new("Frame")
+				lineFrame = NewInstance("Frame")
 				lineFrame.Name = "Line"
 				lineFrame.Position = UDim2.new(0,0,0,(row-1)*self.FontSize)
 				lineFrame.Size = UDim2.new(1,0,0,self.FontSize)
 				lineFrame.BorderSizePixel = 0
 				lineFrame.BackgroundTransparency = 1
 
-				local selectionHighlight = Instance.new("Frame")
+				local selectionHighlight = NewInstance("Frame")
 				selectionHighlight.Name = "SelectionHighlight"
 				selectionHighlight.BorderSizePixel = 0
 				selectionHighlight.BackgroundColor3 = Settings.Theme.Syntax.SelectionBack
 				selectionHighlight.Parent = lineFrame
 				selectionHighlight.BackgroundTransparency = 0.7
 
-				local label = Instance.new("TextLabel")
+				local label = NewInstance("TextLabel")
 				label.Name = "Label"
 				label.BackgroundTransparency = 1
 				label.FontFace = self.FontFace

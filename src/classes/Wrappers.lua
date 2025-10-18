@@ -9,8 +9,8 @@ export type table = {
 
 --// Compatibility 
 local GetHiddenUI = get_hidden_gui or gethui
-local NewReference = cloneref or function(Ins): Instance 
-	return Ins 
+local NewReference = cloneref or function(...): Instance 
+	return ... 
 end
 
 --// Service handlers
@@ -31,6 +31,10 @@ local ReGui
 function Wrappers:AddOnInit(Func: (table)->nil)
     local Connections = self.OnInitConnections
     table.insert(Connections, Func)
+end
+
+function Wrappers:NewReference(Object: Instance): Instance
+	return NewReference(Object)
 end
 
 function Wrappers:CallOnInitConnections(ReGuiModule, ...)
