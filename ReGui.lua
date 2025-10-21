@@ -712,7 +712,7 @@ function a.f()
         "Dot","Arrow","Close","Checkmark","Cat","Script","Settings","Info","Move",
         "Roblox","Warning","Audio","Shop","CharacterDance","Pants","Home","Robux",
         "Badge","SpawnLocation","Sword","Clover","Star","Code","Paw","Shield",
-        "Shield2","File","Book","Location","Puzzle","Discord","Premium","Friend",
+        "Shield2","File","Location","Puzzle","Discord","Premium","Friend",
         "User","Duplicate","ChatBox","ChatBox2","Devices","Weight","Image","Profile",
         "Admin","PaintBrush","Speed","NoConnection","Connection","Globe","Box",
         "Crown","Control","Send","FastForward","Pause","Reload","Joystick",
