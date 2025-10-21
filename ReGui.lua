@@ -705,39 +705,83 @@ Text=`Hello {B},{z}`}end end local z=u:TreeNode{Title='With headers'}local A,B=z
 ,7 do if C==1 then p=A:HeaderRow()else p=A:Row()end for D,E in B do if C==1 then
 local F=p:Column()F:Label{Text=E}continue end local F=p:NextColumn()F:Label{Text
 =`Hello {D},{C}`}end end end end 
-local folderPath = "GcView@awakenkn/GcView@Assets"
-local getasset = getcustomasset
 function a.f()
-    local assets = {
-        "Dot","Arrow","Close","Checkmark","Cat","Script","Settings","Info","Move",
-        "Roblox","Warning","Audio","Shop","CharacterDance","Pants","Home","Robux",
-        "Badge","SpawnLocation","Sword","Clover","Star","Code","Paw","Shield",
-        "Shield2","File","Location","Puzzle","Discord","Premium","Friend",
-        "User","Duplicate","ChatBox","ChatBox2","Devices","Weight","Image","Profile",
-        "Admin","PaintBrush","Speed","NoConnection","Connection","Globe","Box",
-        "Crown","Control","Send","FastForward","Pause","Reload","Joystick",
-        "Controller","Lock","Calculator","Sun","Moon","Prohibited","Flag","Website",
-        "Telegram","MusicNote","Music","Headphones","Phone","Smartphone","Desktop",
-        "Desktop2","Laptop","Server","Wedge","Drill","Character"
-    }
+    local folderPath = getgenv().assetpath or "GcView@awakenkn/GcView@Assets" 
+    local getasset = getcustomasset
+    if getasset then
+        local assets = {
+            "Dot","Arrow","Close","Checkmark","Cat","Script","Settings","Info","Move",
+            "Roblox","Warning","Audio","Shop","CharacterDance","Pants","Home","Robux",
+            "Badge","SpawnLocation","Sword","Clover","Star","Code","Paw","Shield",
+            "Shield2","File","Location","Puzzle","Discord","Premium","Friend",
+            "User","Duplicate","ChatBox","ChatBox2","Devices","Weight","Image","Profile",
+            "Admin","PaintBrush","Speed","NoConnection","Connection","Globe","Box",
+            "Crown","Control","Send","FastForward","Pause","Reload","Joystick",
+            "Controller","Lock","Calculator","Sun","Moon","Prohibited","Flag","Website",
+            "Telegram","MusicNote","Music","Headphones","Phone","Smartphone","Desktop",
+            "Desktop2","Laptop","Server","Wedge","Drill","Character"
+        }
 
-    local t = {}
+        local t = {}
 
-    for _, name in ipairs(assets) do
-        local path = ("%s/%s.png"):format(folderPath, name)
-        if isfile and isfile(path) and getasset then
-            local ok, result = pcall(getasset, path)
-            if ok and result then
-                t[name] = result
+        for _, name in ipairs(assets) do
+            local path = ("%s/%s.png"):format(folderPath, name)
+            if isfile and isfile(path) and getasset then
+                local ok, result = pcall(getasset, path)
+                if ok and result then
+                    t[name] = result
+                else
+                    warn("⚠️ Failed to load local asset:", name)
+                end
             else
-                warn("⚠️ Failed to load local asset:", name)
+                warn("⚠️ Missing asset file:", path)
             end
-        else
-            warn("⚠️ Missing asset file:", path)
         end
-    end
 
-    return t
+        return t
+    else
+        return{
+            Dot='rbxasset://textures/whiteCircle.png',Arrow=
+            'rbxasset://textures/ui/AvatarContextMenu_Arrow.png',Close=
+            'rbxasset://textures/loading/cancelButton.png',Checkmark=
+            'rbxasset://textures/ui/Lobby/Buttons/nine_slice_button.png',Cat=
+            'rbxassetid://16211812161',Script='rbxassetid://11570895459',Settings=
+            'rbxassetid://9743465390',Info='rbxassetid://18754976792',Move=
+            'rbxassetid://6710235139',Roblox='rbxassetid://7414445494',Warning=
+            'rbxassetid://11745872910',Audio='rbxassetid://302250236',Shop=
+            'rbxassetid://6473525198',CharacterDance='rbxassetid://11932783331',Pants=
+            'rbxassetid://10098755331',Home='rbxassetid://4034483344',Robux=
+            'rbxassetid://5986143282',Badge='rbxassetid://16170504068',SpawnLocation=
+            'rbxassetid://6400507398',Sword='rbxassetid://7485051715',Clover=
+            'rbxassetid://11999300014',Star='rbxassetid://3057073083',Code=
+            'rbxassetid://11348555035',Paw='rbxassetid://13001190533',Shield=
+            'rbxassetid://7461510428',Shield2='rbxassetid://7169354142',File=
+            'rbxassetid://7276823330',Book='rbxassetid://16061686835',Location=
+            'rbxassetid://13549782519',Puzzle='rbxassetid://8898417863',Discord=
+            'rbxassetid://84828491431270',Premium='rbxassetid://6487178625',Friend=
+            'rbxassetid://10885655986',User='rbxassetid://18854794412',Duplicate=
+            'rbxassetid://11833749507',ChatBox='rbxassetid://15839118471',ChatBox2=
+            'rbxassetid://15839116089',Devices='rbxassetid://4458812712',Weight=
+            'rbxassetid://9855685269',Image='rbxassetid://123311808092347',Profile=
+            'rbxassetid://13585614795',Admin='rbxassetid://11656483170',PaintBrush=
+            'rbxassetid://12111879608',Speed='rbxassetid://12641434961',NoConnection=
+            'rbxassetid://9795340967',Connection='rbxassetid://119759670842477',Globe=
+            'rbxassetid://18870359747',Box='rbxassetid://140217940575618',Crown=
+            'rbxassetid://18826490498',Control='rbxassetid://18979524646',Send=
+            'rbxassetid://18940312887',FastForward='rbxassetid://112963221295680',Pause=
+            'rbxassetid://109949100737970',Reload='rbxassetid://11570018242',Joystick=
+            'rbxassetid://18749336354',Controller='rbxassetid://11894535915',Lock=
+            'rbxassetid://17783082088',Calculator='rbxassetid://85861816563977',Sun=
+            'rbxassetid://13492317832',Moon='rbxassetid://8498174594',Prohibited=
+            'rbxassetid://5248916036',Flag='rbxassetid://251346532',Website=
+            'rbxassetid://98455290625865',Telegram='rbxassetid://115860270107061',MusicNote=
+            'rbxassetid://18187351229',Music='rbxassetid://253830398',Headphones=
+            'rbxassetid://1311321471',Phone='rbxassetid://8411963035',Smartphone=
+            'rbxassetid://14040313879',Desktop='rbxassetid://3120635703',Desktop2=
+            'rbxassetid://4728059490',Laptop='rbxassetid://4728059725',Server=
+            'rbxassetid://9692125126',Wedge='rbxassetid://9086583059',Drill=
+            'rbxassetid://11959189471',Character='rbxassetid://13285102351'}
+    end
 end
 function a.g
 ()return{Light=Color3.fromRGB(50,150,250),Dark=Color3.fromRGB(30,66,115),
